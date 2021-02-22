@@ -129,7 +129,7 @@ class HeadManager extends Manager
             $result = $stmt->fetch();
             if($result){
                 if(($result['designation']=='manager') | ($result['designation']=='staff') | $id==$this->getID()){
-                    $sql = "UPDATE `employee` SET dp=? WHERE `ID`=?";
+                    $sql = "UPDATE `employee` SET dp=? WHERE `ID`=? and `branchCode`=?";
                     $stmt = (new Connection)->connect()->prepare($sql);
                     
                     if($stmt->execute([$dp,$id,$this->getBrachCode()])){
