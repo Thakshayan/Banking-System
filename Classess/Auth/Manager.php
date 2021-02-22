@@ -144,14 +144,15 @@ class Manager extends Employee
     
     public function getAllStaff(){
 
-        $sql = "SELECT `ID`,`name`,`email`,`branchCode`,`mobileNo`,`dp`,`JoinedDate`,`leftDate`,`designation` FROM `employee` WHERE designation = ?";
+        $sql = "SELECT `ID`,`name`,`email`,`branchCode`,`mobileNo`,`dp`,`JoinedDate`,`leftDate`,`designation` FROM `employee` WHERE designation = ? and `branchCode`=?";
         $stmt = (new Connection)->connect()->prepare($sql);
-        $stmt->execute(['staff']);
+        $stmt->execute(['staff',$this->getBrachCode()]);
         $results = $stmt->fetchAll();
         $arr = array();
         $content = "";
         $sess_id = 0;
         foreach($results as $result){
+
 
             $arr[strval($sess_id)]=$result['ID'];
 
