@@ -22,7 +22,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">All Professors</span>
+                                            <li><span class="bread-blod">All Staffs</span>
                                             </li>
                                         </ul>
                                     </div>

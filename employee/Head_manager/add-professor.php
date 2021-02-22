@@ -236,7 +236,7 @@
                                                 $fileUniqueName = "uploads/".uniqid('',true).".".$fileExt;
                                                 $fileDestination = $fileUniqueName;
                                                 
-                                                move_uploaded_file($fileTmpName,$fileDestination);
+                                                
                                                 
                                             }else{
                                                 echo FILESIZEBIG;
@@ -254,7 +254,7 @@
                                     $id = $_POST['ID'];
                                     $dp = $fileUniqueName;
 
-                                    echo $loginedUser->uploadDP($id,$dp);
+                                    echo $loginedUser->uploadDP($id,$dp,$fileTmpName,$fileDestination);
                                     
                                 }
                             ?>

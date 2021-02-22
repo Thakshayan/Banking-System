@@ -121,7 +121,7 @@ class HeadManager extends Manager
 
     
     
-    public function uploadDP($id,$dp){
+    public function uploadDP($id,$dp,$fileTmpName,$fileDestination){
 
         $sql = 'SELECT ID,designation FROM employee WHERE ID=?;';
         $stmt = (new Connection)->connect()->prepare($sql);
@@ -131,8 +131,14 @@ class HeadManager extends Manager
                 if(($result['designation']=='manager') | ($result['designation']=='staff') | $id==$this->getID()){
                     $sql = "UPDATE `employee` SET dp=? WHERE `ID`=?";
                     $stmt = (new Connection)->connect()->prepare($sql);
-                    if($stmt->execute([$dp,$id])){
-                        return SUCCESSFULUPDATE;
+                    
+                    if($stmt->execute([$dp,$id,$this->getBrachCode()])){
+                        if($stmt->rowcount()){
+                            move_uploaded_file($fileTmpName,$fileDestination);
+                            return SUCCESSFULUPDATE;
+                        }
+                        return PERMISSONDENIED;
+                        
                     }
                     return FAILEDINSERT; 
                 }

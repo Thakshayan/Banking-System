@@ -18,7 +18,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Add Manager</span>
+                                            <li><span class="bread-blod">Add Staff</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -236,7 +236,7 @@
                                                 $fileUniqueName = "uploads/".uniqid('',true).".".$fileExt;
                                                 $fileDestination = $fileUniqueName;
                                                 
-                                                move_uploaded_file($fileTmpName,$fileDestination);
+                                            
                                                 
                                             }else{
                                                 echo FILESIZEBIG;
@@ -254,7 +254,7 @@
                                     $id = $_POST['ID'];
                                     $dp = $fileUniqueName;
 
-                                    echo $loginedUser->uploadDP($id,$dp);
+                                    echo $loginedUser->uploadDP($id,$dp,$fileTmpName,$fileDestination);
                                     
                                 }
                             ?>

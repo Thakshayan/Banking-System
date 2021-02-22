@@ -84,7 +84,7 @@ class Manager extends Employee
         }   
     }
 
-    public function uploadDP($id,$dp){
+    public function uploadDP($id,$dp,$fileTmpName,$fileDestination){
 
         $sql = 'SELECT ID,designation FROM employee WHERE ID=?;';
         $stmt = (new Connection)->connect()->prepare($sql);
@@ -92,10 +92,16 @@ class Manager extends Employee
             $result = $stmt->fetch();
             if($result){
                 if(($result['designation']=='staff') | $id==$this->getID()){
-                    $sql = "UPDATE `employee` SET dp=? WHERE `ID`=?";
+                    $sql = "UPDATE `employee` SET dp=? WHERE `ID`=? and `branchCode`=?";
                     $stmt = (new Connection)->connect()->prepare($sql);
-                    if($stmt->execute([$dp,$id])){
-                        return SUCCESSFULUPDATE;
+
+                    if($stmt->execute([$dp,$id,$this->getBrachCode()])){
+                        if($stmt->rowcount()){
+                            move_uploaded_file($fileTmpName,$fileDestination);
+                            return SUCCESSFULUPDATE;
+                        }
+                        return PERMISSONDENIED;
+                        
                     }
                     return FAILEDINSERT; 
                 }
