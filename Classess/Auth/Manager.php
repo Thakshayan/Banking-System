@@ -148,9 +148,13 @@ class Manager extends Employee
         $stmt = (new Connection)->connect()->prepare($sql);
         $stmt->execute(['staff']);
         $results = $stmt->fetchAll();
-        
+        $arr = array();
         $content = "";
+        $sess_id = 0;
         foreach($results as $result){
+
+            $arr[strval($sess_id)]=$result['ID'];
+
 
             $start = date_create(explode(' ',$result['JoinedDate'])[0]);
 
@@ -193,12 +197,14 @@ class Manager extends Employee
                                             </div>
                                     <div class="panel-footer contact-footer" style="margin:auto;  text-align:center;">
                                                 <form method="POST" action="edit-professor.php">
-                                                    <input type="hidden" value="'.$result['ID'].'"  name="id">
+                                                    <input type="hidden" value="'.$arr[strval($sess_id)].'"  name="id">
                                                     <button type="submit" class="contact-stat" style="width:100%; cursor:pointer; background-color:#006DF0; border:none;"><span> Read More </span> <strong style="font-size: 15px;"> >>> </strong></button>
                                                 </form>
                                     </div>
                                 </div>
                             </div>';
+
+                            $sess_id++;
 
         }
         return $content;
